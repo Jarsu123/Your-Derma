@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Upload Photo • YourDerma</title>
+</head>
+
+<body class="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+
+  <div class="w-full max-w-md bg-white border border-slate-200 rounded-3xl shadow-xl p-8">
+    <a href="/dashboard" class="text-sm text-slate-600 hover:text-slate-900">← Back</a>
+
+    <h1 class="mt-3 text-2xl font-semibold">Upload your photo</h1>
+    <p class="mt-1 text-slate-600 text-sm">Use good lighting. Keep your face/scalp centered.</p>
+    <h1 class="mt-3 text-2xl font-semibold">Upload your photo</h1>
+
+<p class="mt-1 text-slate-600 text-sm">
+  Use good lighting. Keep your face/scalp centered.
+</p>
+
+<!-- ✅ ERROR MESSAGE HERE -->
+{% if err %}
+  <div class="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+    {{ err }}
+  </div>
+{% endif %}
+
+
+    <!-- Buttons -->
+    <div class="mt-6 grid grid-cols-2 gap-3">
+      <button id="openCameraBtn" type="button"
+        class="rounded-2xl bg-slate-900 text-white py-3 font-medium hover:bg-slate-800 transition">
+        🎥 Open Camera
+      </button>
+
+      <button id="openGalleryBtn" type="button"
+        class="rounded-2xl border border-slate-200 py-3 font-medium text-slate-900 hover:bg-slate-50 transition">
+        🖼️ Choose Gallery
+      </button>
+    </div>
+
+    <!-- Hidden Gallery Input + Normal Upload Form (fallback) -->
+    <form id="galleryForm" class="mt-4 space-y-4 hidden" action="/upload" method="POST" enctype="multipart/form-data">
+      <input id="galleryInput" type="file" name="photo" accept="image/*" required
+        class="w-full rounded-2xl border border-slate-200 px-4 py-3 bg-white" />
+      <button class="w-full rounded-2xl bg-emerald-600 text-white py-3 font-medium hover:bg-emerald-500 transition">
+        Upload & Analyze →
+      </button>
+    </form>
+
+    <p class="mt-4 text-xs text-slate-500">
+      Camera works on laptop/mobile if permission is allowed. If camera not available, use gallery.
+    </p>
+  </div>
+
+  <!-- Camera Modal -->
+  <div id="cameraModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center px-4">
+    <div class="w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+      <div class="p-5 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold">Camera</h2>
+          <p class="text-sm text-slate-600">Align properly, then capture.</p>
+        </div>
+        <button id="closeCameraBtn" class="text-sm px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50">
+          ✕ Close
+        </button>
+      </div>
+
+      <div class="px-5 pb-5">
+        <!-- Live preview -->
+        <div class="relative rounded-3xl overflow-hidden border border-slate-200 bg-black aspect-[4/3]">
+          <video id="video" autoplay playsinline class="w-full h-full object-cover"></video>
+
+          <!-- Captured image preview -->
+          <img id="capturedImg" class="hidden w-full h-full object-cover" alt="Captured"/>
+
+          <!-- Guide overlay -->
+          <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div class="w-[70%] h-[70%] rounded-[2rem] border-2 border-white/50"></div>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div id="camError" class="hidden mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"></div>
+
+        <!-- Controls -->
+        <div class="mt-4 grid grid-cols-3 gap-3">
+          <button id="captureBtn" type="button"
+            class="rounded-2xl bg-slate-900 text-white py-3 font-medium hover:bg-slate-800 transition">
+            📸 Capture
+          </button>
+
+          <button id="retakeBtn" type="button" disabled
+            class="rounded-2xl border border-slate-200 py-3 font-medium text-slate-900 hover:bg-slate-50 transition disabled:opacity-50 disabled:hover:bg-white">
+            🔄 Retake
+          </button>
+
+          <button id="uploadBtn" type="button" disabled
+            class="rounded-2xl bg-emerald-600 text-white py-3 font-medium hover:bg-emerald-500 transition disabled:opacity-50 disabled:hover:bg-emerald-600">
+            ✅ Upload
+          </button>
+        </div>
+
+        <p class="mt-3 text-xs text-slate-500">
+          Tip: Bright light + steady camera = best analysis.
+        </p>
+
+        <!-- Hidden canvas used for snapshot -->
+        <canvas id="canvas" class="hidden"></canvas>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const openCameraBtn = document.getElementById("openCameraBtn");
+  const openGalleryBtn = document.getElementById("openGalleryBtn");
+  const galleryForm = document.getElementById("galleryForm");
+  const galleryInput = document.getElementById("galleryInput");
+
+  const cameraModal = document.getElementById("cameraModal");
+  const closeCameraBtn = document.getElementById("closeCameraBtn");
+  const camError = document.getElementById("camError");
+
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  const capturedImg = document.getElementById("capturedImg");
+
+  const captureBtn = document.getElementById("captureBtn");
+  const retakeBtn = document.getElementById("retakeBtn");
+  const uploadBtn = document.getElementById("uploadBtn");
+
+  let stream = null;
+  let capturedBlob = null;
+
+  function showError(msg) {
+    camError.textContent = msg;
+    camError.classList.remove("hidden");
+  }
+
+  function clearError() {
+    camError.classList.add("hidden");
+    camError.textContent = "";
+  }
+
+  async function startCamera() {
+    clearError();
+
+    // Try best camera settings (prefer back camera if available)
+    const constraints = {
+      video: {
+        facingMode: { ideal: "environment" },
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      },
+      audio: false
+    };
+
+    try {
+      stream = await navigator.mediaDevices.getUserMedia(constraints);
+      video.srcObject = stream;
+
+      // reset UI
+      capturedBlob = null;
+      capturedImg.classList.add("hidden");
+      video.classList.remove("hidden");
+      retakeBtn.disabled = true;
+      uploadBtn.disabled = true;
+
+    } catch (e) {
+      console.error(e);
+      showError("Camera permission denied or camera not available. Please allow camera access or use gallery.");
+    }
+  }
+
+  function stopCamera() {
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+    video.srcObject = null;
+  }
+
+  openCameraBtn.addEventListener("click", async () => {
+    cameraModal.classList.remove("hidden");
+    cameraModal.classList.add("flex");
+    await startCamera();
+  });
+
+  closeCameraBtn.addEventListener("click", () => {
+    stopCamera();
+    cameraModal.classList.add("hidden");
+    cameraModal.classList.remove("flex");
+  });
+
+  // close on background click
+  cameraModal.addEventListener("click", (e) => {
+    if (e.target === cameraModal) {
+      stopCamera();
+      cameraModal.classList.add("hidden");
+      cameraModal.classList.remove("flex");
+    }
+  });
+
+  openGalleryBtn.addEventListener("click", () => {
+    galleryForm.classList.remove("hidden");
+    galleryInput.click();
+  });
+
+  captureBtn.addEventListener("click", () => {
+    if (!video.videoWidth) {
+      showError("Camera not ready yet. Wait 1 second and try again.");
+      return;
+    }
+    clearError();
+
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    canvas.width = w;
+    canvas.height = h;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, w, h);
+
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        showError("Capture failed. Try again.");
+        return;
+      }
+      capturedBlob = blob;
+
+      // show captured preview
+      const url = URL.createObjectURL(blob);
+      capturedImg.src = url;
+
+      video.classList.add("hidden");
+      capturedImg.classList.remove("hidden");
+
+      retakeBtn.disabled = false;
+      uploadBtn.disabled = false;
+    }, "image/jpeg", 0.92);
+  });
+
+  retakeBtn.addEventListener("click", async () => {
+    capturedBlob = null;
+    capturedImg.classList.add("hidden");
+    video.classList.remove("hidden");
+    retakeBtn.disabled = true;
+    uploadBtn.disabled = true;
+    clearError();
+  });
+
+  uploadBtn.addEventListener("click", async () => {
+    if (!capturedBlob) return;
+
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = "Uploading...";
+
+    try {
+      const fd = new FormData();
+      // Backend expects field name "photo"
+      fd.append("photo", capturedBlob, "camera.jpg");
+
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: fd
+      });
+
+      // FastAPI returns HTML page. We replace current page with that.
+      const html = await res.text();
+      document.open();
+      document.write(html);
+      document.close();
+
+    } catch (e) {
+      console.error(e);
+      showError("Upload failed. Please try again or use gallery.");
+      uploadBtn.disabled = false;
+      uploadBtn.textContent = "✅ Upload";
+    }
+  });
+
+
+
+
+</script>
+
+</body>
+</html>

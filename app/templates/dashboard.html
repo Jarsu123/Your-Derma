@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Dashboard • YourDerma</title>
+</head>
+<body class="min-h-screen bg-slate-50 px-6 py-10">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white border border-slate-200 rounded-3xl shadow-xl p-8">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-semibold">Dashboard</h1>
+        <a href="/upload" class="text-sm px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800">Upload Photo</a>
+        <a href="/logout" class="text-sm px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-50">Logout</a>
+
+      </div>
+
+      <p class="mt-4 text-slate-700">
+        Hello, <b>{{ user.name }}</b> 👋
+      </p>
+      <p class="mt-1 text-slate-600 text-sm">
+        Logged in as: {{ user.email }}
+      </p>
+    </div>
+  </div>
+</body>
+</html>

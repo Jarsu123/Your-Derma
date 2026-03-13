@@ -1,0 +1,1564 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>YourDerma</title>
+
+  <style>
+    html { scroll-behavior: smooth; }
+   body{
+  background:
+    radial-gradient(900px 520px at 12% 8%, rgba(47,133,90,.10), transparent 60%),
+    radial-gradient(900px 520px at 88% 22%, rgba(161,98,7,.08), transparent 62%),
+    radial-gradient(900px 520px at 45% 92%, rgba(148,163,184,.10), transparent 60%),
+    #ffffff;
+}
+
+  </style>
+  
+  <style>
+  html { scroll-behavior: smooth; }
+
+  /* ===== Global Premium Base ===== */
+  body{
+    background:
+      radial-gradient(900px 500px at 15% 10%, rgba(34,197,94,.10), transparent 55%),
+      radial-gradient(800px 500px at 85% 30%, rgba(239,68,68,.08), transparent 55%),
+      radial-gradient(900px 500px at 40% 90%, rgba(148,163,184,.10), transparent 60%),
+      #ffffff;
+  }
+
+  /* subtle luxury grain (very light) */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .035;
+    mix-blend-mode: multiply;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.45) 1px, transparent 1px, transparent 3px);
+  }
+
+  /* smoother UI feel */
+  a, button { transition: all 220ms ease; }
+  ::selection { background: rgba(16,185,129,.18); }
+
+  /* =========================================================
+     SECTION 3 — How it works (Ultra Luxury)
+  ========================================================= */
+
+  .reveal { opacity: 0; transform: translateY(16px); filter: blur(6px); transition: 700ms ease; }
+  .reveal.show { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .floaty { animation: floaty 4.5s ease-in-out infinite; }
+
+  .flow-line {
+    background: linear-gradient(90deg, rgba(16,185,129,.15), rgba(59,130,246,.65), rgba(16,185,129,.15));
+    background-size: 200% 100%;
+    animation: flow 3.2s linear infinite;
+  }
+  @keyframes flow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+
+  .premium { transition: transform 260ms ease, box-shadow 260ms ease; }
+  .premium:hover { transform: translateY(-7px) scale(1.012); box-shadow: 0 24px 80px rgba(2,132,199,.10); }
+
+  .ring-glow {
+    box-shadow:
+      0 10px 40px rgba(2, 132, 199, .10),
+      0 0 0 10px rgba(59,130,246,.06);
+  }
+
+  @keyframes glowPulse {
+    0%,100% { box-shadow: 0 10px 40px rgba(2,132,199,.10), 0 0 0 10px rgba(59,130,246,.05); }
+    50%     { box-shadow: 0 18px 60px rgba(16,185,129,.10), 0 0 0 12px rgba(16,185,129,.06); }
+  }
+  .lux-ring { animation: glowPulse 3.8s ease-in-out infinite; }
+
+  .shine { position: relative; overflow: hidden; }
+  .shine::after{
+    content:"";
+    position:absolute;
+    top:-40%;
+    left:-60%;
+    width:60%;
+    height:180%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: rotate(18deg);
+    animation: s3_sweep 3.6s ease-in-out infinite;
+    opacity:.35;
+    pointer-events:none;
+  }
+  @keyframes s3_sweep {
+    0%   { transform: translateX(-40%) rotate(18deg); opacity: 0; }
+    25%  { opacity: .35; }
+    55%  { opacity: .35; }
+    100% { transform: translateX(240%) rotate(18deg); opacity: 0; }
+  }
+
+  /* ✅ FIXED CROSSFADE (important) */
+  .crossfade { position: relative; }
+  .crossfade img{
+    position:absolute;       /* <-- this was missing in your code */
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    opacity: 0;
+    filter: blur(3px);
+    transform: scale(1);
+    animation: crossfade 9s infinite;
+  }
+
+  /* timings */
+  #s3 .grid > div:nth-child(1) .crossfade img:nth-child(1) { animation-delay: 0s; }
+  #s3 .grid > div:nth-child(1) .crossfade img:nth-child(2) { animation-delay: 4.5s; }
+
+  #s3 .grid > div:nth-child(2) .crossfade img:nth-child(1) { animation-delay: 2s; }
+  #s3 .grid > div:nth-child(2) .crossfade img:nth-child(2) { animation-delay: 6.5s; }
+
+  #s3 .grid > div:nth-child(3) .crossfade img:nth-child(1) { animation-delay: 4s; }
+  #s3 .grid > div:nth-child(3) .crossfade img:nth-child(2) { animation-delay: 8.5s; }
+
+  @keyframes crossfade {
+    0%   { opacity: 0; filter: blur(5px); transform: scale(1); }
+    8%   { opacity: 1; filter: blur(0px); transform: scale(1.06); }
+    42%  { opacity: 1; filter: blur(0px); transform: scale(1.06); }
+    50%  { opacity: 0; filter: blur(5px); transform: scale(1); }
+    100% { opacity: 0; filter: blur(5px); transform: scale(1); }
+  }
+
+  .premium:hover .lux-ring {
+    box-shadow: 0 20px 70px rgba(59,130,246,.18), 0 0 0 14px rgba(59,130,246,.08);
+  }
+
+  /* =========================================================
+     SECTION 4 — Before/After (Ultra Luxury)
+  ========================================================= */
+
+  #s4 .lux-card{
+    position: relative;
+    border-radius: 2rem;
+    background: rgba(255,255,255,.65);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(148,163,184,.35);
+    box-shadow: 0 30px 90px rgba(2, 6, 23, .08), 0 12px 40px rgba(2,132,199,.10);
+    overflow: hidden;
+  }
+
+  #s4 .lux-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:2rem;
+    background:
+      radial-gradient(900px 240px at 20% 0%, rgba(59,130,246,.14), transparent 55%),
+      radial-gradient(900px 260px at 80% 20%, rgba(16,185,129,.10), transparent 60%);
+    pointer-events:none;
+    opacity:.9;
+  }
+
+  #s4 .lux-card::after{
+    content:"";
+    position:absolute;
+    top:-40%;
+    left:-60%;
+    width:60%;
+    height:180%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.50), transparent);
+    transform: rotate(18deg);
+    animation: s4_sweep 5.2s ease-in-out infinite; /* renamed to avoid clash */
+    opacity:.30;
+    pointer-events:none;
+  }
+
+  @keyframes s4_sweep{
+    0%   { transform: translateX(-40%) rotate(18deg); opacity: 0; }
+    20%  { opacity: .30; }
+    55%  { opacity: .30; }
+    100% { transform: translateX(240%) rotate(18deg); opacity: 0; }
+  }
+
+  /* Slider wrap extra depth */
+  #ba{
+    box-shadow: inset 0 0 0 1px rgba(148,163,184,.20);
+  }
+  #ba::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(120% 120% at 50% 0%, rgba(0,0,0,.10), transparent 40%);
+    opacity:.28;
+    pointer-events:none;
+    z-index: 4;
+  }
+
+  #ba img{ transition: transform 500ms ease; transform: scale(1.0001); }
+  #s4 .lux-card:hover #ba img{ transform: scale(1.02); }
+
+  /* divider glow */
+  #divider{
+    background: rgba(255,255,255,.65) !important;
+    box-shadow:
+      0 0 0 1px rgba(148,163,184,.35),
+      0 0 30px rgba(59,130,246,.20) !important;
+    width:2px !important;
+  }
+
+  /* handle pulse and drag states */
+  #handle{
+    background: rgba(255,255,255,.75) !important;
+    border: 1px solid rgba(148,163,184,.35) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 18px 55px rgba(2,6,23,.12), 0 0 0 10px rgba(59,130,246,.08);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  #handle:hover{
+    transform: translate(-50%,-50%) scale(1.06);
+    box-shadow: 0 22px 70px rgba(2,6,23,.14), 0 0 0 14px rgba(59,130,246,.10);
+  }
+
+  @keyframes pulseGlow{
+    0%,100% { box-shadow: 0 18px 55px rgba(2,6,23,.12), 0 0 0 10px rgba(59,130,246,.07); }
+    50%     { box-shadow: 0 22px 70px rgba(2,6,23,.12), 0 0 0 13px rgba(16,185,129,.08); }
+  }
+  #handle.pulse{ animation: pulseGlow 3.2s ease-in-out infinite; }
+
+  #ba.dragging #handle{
+    animation:none;
+    box-shadow: 0 22px 75px rgba(2,6,23,.14), 0 0 0 16px rgba(59,130,246,.12);
+  }
+
+  /* labels glass */
+  #ba .tag{
+    background: rgba(255,255,255,.70) !important;
+    color: rgba(15,23,42,.90) !important;
+    border: 1px solid rgba(148,163,184,.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(2,6,23,.10);
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+</style>
+
+  </style>
+</head>
+
+<body class="text-slate-900">
+
+  <!-- NAV -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    <a href="/" class="flex items-center">
+      <img src="/static/logo.png" alt="YourDerma Logo" class="h-20 w-auto drop-shadow-md">
+    </a>
+
+<nav class="flex items-center gap-6 text-sm text-slate-700">
+  <a class="hover:text-slate-900" href="#s2">Features</a>
+  <a class="hover:text-slate-900" href="#s3">How it works</a>
+  <a class="hover:text-slate-900" href="#s4">Before/After</a>
+
+  <!-- SCROLL SECTIONS -->
+  <a class="hover:text-slate-900" href="#s6">Hairfall Stages</a>
+  <a class="hover:text-slate-900" href="#s7">Acne Stages</a>
+
+  <a class="hover:text-slate-900" href="#s5">Get started</a>
+</nav>
+
+
+    <div class="flex gap-3">
+      <a href="/login" class="text-sm text-slate-700 hover:text-slate-900">Login</a>
+     <a href="/signup"
+   class="text-sm px-4 py-2 rounded-xl text-white font-semibold                                                   
+          bg-gradient-to-r from-[#2F855A] to-[#A16207]
+          hover:opacity-95 shadow-lg">
+  Get Started
+</a>
+
+    </div>
+
+  </div>
+</header>
+
+
+  <main class="max-w-6xl mx-auto px-6">
+
+<!-- SECTION 1 (Hero) - Ultra Premium + Working Before/After Link + Animations -->
+<section id="s1" class="max-w-6xl mx-auto px-5 pt-14 pb-16">
+  <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+    <!-- LEFT -->
+    <div class="anim-fadeUp delay-1">
+      <!-- Premium pill -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/70 bg-white/60 backdrop-blur shadow-sm">
+        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+        <span class="text-xs font-semibold text-slate-700">Private • Clinical-feel • Data-driven</span>
+      </div>
+
+      <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-slate-900 anim-fadeUp delay-2">
+        Transform your
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-700 via-emerald-500 to-teal-500">Skin</span>
+        &amp;
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-700 via-orange-500 to-amber-500">Hair</span>
+        <span class="text-slate-700 font-extrabold">with Data</span>
+      </h1>
+
+      <p class="mt-5 text-slate-700 text-lg leading-relaxed max-w-xl anim-fadeUp delay-3">
+        Track acne + hairfall progress, routine consistency, and weekly trends.
+        <span class="font-semibold text-slate-900">Your Hair. Your Skin. Your Data.</span>
+      </p>
+
+      <!-- CTAs -->
+      <div class="mt-8 flex flex-wrap items-center gap-3 anim-fadeUp delay-4">
+        <a href="#s5"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold text-white
+                 bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-500
+                 shadow-xl shadow-emerald-600/20 hover:shadow-2xl hover:shadow-emerald-600/30
+                 hover:-translate-y-0.5 hover:scale-[1.01] transition duration-300">
+          Start Tracking
+        </a>
+
+        <!-- ✅ FIXED: Before/After link points to #s4 -->
+        <a href="#s4"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold text-slate-900
+                 bg-white/60 backdrop-blur border border-white/70
+                 shadow-lg hover:bg-white/75 hover:-translate-y-0.5 transition duration-300">
+          See Before/After
+        </a>
+      </div>
+
+      <!-- Stats cards -->
+      <div class="mt-10 grid grid-cols-3 gap-3 max-w-xl">
+        <div class="rounded-2xl border border-white/70 bg-white/60 backdrop-blur p-4 shadow-lg hover:-translate-y-0.5 transition duration-300">
+          <div class="text-xs text-slate-600">Routine</div>
+          <div class="mt-1 font-bold text-slate-900">Streak + %</div>
+        </div>
+        <div class="rounded-2xl border border-white/70 bg-white/60 backdrop-blur p-4 shadow-lg hover:-translate-y-0.5 transition duration-300">
+          <div class="text-xs text-slate-600">Symptoms</div>
+          <div class="mt-1 font-bold text-slate-900">Scores</div>
+        </div>
+        <div class="rounded-2xl border border-white/70 bg-white/60 backdrop-blur p-4 shadow-lg hover:-translate-y-0.5 transition duration-300">
+          <div class="text-xs text-slate-600">Progress</div>
+          <div class="mt-1 font-bold text-slate-900">Trends</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT (Premium mock card with float animation) -->
+    <div class="relative">
+      <div class="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-white/70 to-white/10 blur-2xl"></div>
+
+      <div class="relative rounded-[2.5rem] border border-white/70 bg-white/45 backdrop-blur-xl shadow-2xl overflow-hidden anim-floaty">
+        <!-- top bar -->
+        <div class="px-6 py-4 flex items-center justify-between border-b border-white/60">
+          <div class="flex items-center gap-2">
+            <div class="h-2.5 w-2.5 rounded-full bg-red-400/80"></div>
+            <div class="h-2.5 w-2.5 rounded-full bg-amber-400/80"></div>
+            <div class="h-2.5 w-2.5 rounded-full bg-emerald-400/80"></div>
+          </div>
+          <div class="text-xs font-semibold text-slate-700">YourDerma • Dashboard</div>
+        </div>
+
+        <div class="p-6">
+          <div class="rounded-2xl bg-white/75 border border-white/70 p-5 shadow-lg">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-600">This Week</div>
+                <div class="text-xl font-extrabold text-slate-900">Skin & Hair Score</div>
+              </div>
+              <div class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-700 border border-emerald-500/20">
+                +12%
+              </div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-2 gap-4">
+              <div class="rounded-2xl bg-white/75 border border-white/70 p-4">
+                <div class="text-xs text-slate-600">Acne</div>
+                <div class="mt-1 text-2xl font-extrabold text-slate-900">78</div>
+                <div class="mt-2 h-2 rounded-full bg-slate-200 overflow-hidden">
+                  <div class="h-full w-[78%] bg-gradient-to-r from-emerald-600 to-teal-500"></div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white/75 border border-white/70 p-4">
+                <div class="text-xs text-slate-600">Hairfall</div>
+                <div class="mt-1 text-2xl font-extrabold text-slate-900">64</div>
+                <div class="mt-2 h-2 rounded-full bg-slate-200 overflow-hidden">
+                  <div class="h-full w-[64%] bg-gradient-to-r from-amber-600 to-orange-500"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 text-xs text-slate-500">*Demo UI (AI-generated)</div>
+          </div>
+
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/60 border border-white/70">Privacy-first</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/60 border border-white/70">Weekly reports</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/60 border border-white/70">Before/After</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/60 border border-white/70">Trends</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute -bottom-4 left-6 px-4 py-2 rounded-2xl bg-white/70 border border-white/70 shadow-lg backdrop-blur">
+        <div class="text-xs text-slate-600">Premium feel</div>
+        <div class="text-sm font-bold text-slate-900">Glass • Depth • Contrast</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- SECTION 3 (How it works - Ultra Luxury Animated) -->
+<section id="s3" class="py-24">
+  <style>
+    /* Smooth reveal */
+    .reveal { opacity: 0; transform: translateY(16px); filter: blur(6px); transition: 700ms ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+    /* Floating cards */
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .floaty { animation: floaty 4.5s ease-in-out infinite; }
+
+    /* Animated gradient line */
+    .flow-line {
+      background: linear-gradient(90deg, rgba(16,185,129,.15), rgba(59,130,246,.65), rgba(16,185,129,.15));
+      background-size: 200% 100%;
+      animation: flow 3.2s linear infinite;
+    }
+    @keyframes flow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+
+    /* Premium hover */
+    .premium { transition: transform 260ms ease, box-shadow 260ms ease; }
+    .premium:hover { transform: translateY(-7px) scale(1.012); box-shadow: 0 24px 80px rgba(2,132,199,.10); }
+
+    /* Soft ring glow (base) */
+    .ring-glow {
+      box-shadow:
+        0 10px 40px rgba(2, 132, 199, .10),
+        0 0 0 10px rgba(59,130,246,.06);
+    }
+
+    /* ✅ ULTRA LUXURY: circle glow breathing */
+    @keyframes glowPulse {
+      0%,100% { box-shadow: 0 10px 40px rgba(2,132,199,.10), 0 0 0 10px rgba(59,130,246,.05); }
+      50%     { box-shadow: 0 18px 60px rgba(16,185,129,.10), 0 0 0 12px rgba(16,185,129,.06); }
+    }
+    .lux-ring { animation: glowPulse 3.8s ease-in-out infinite; }
+
+    /* ✅ ULTRA LUXURY: shine sweep on image circle */
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .shine::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-60%;
+      width:60%;
+      height:180%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+      transform: rotate(18deg);
+      animation: sweep 3.6s ease-in-out infinite;
+      opacity:.35;
+      pointer-events:none;
+    }
+    @keyframes sweep {
+      0%   { transform: translateX(-40%) rotate(18deg); opacity: 0; }
+      25%  { opacity: .35; }
+      55%  { opacity: .35; }
+      100% { transform: translateX(240%) rotate(18deg); opacity: 0; }
+    }
+
+    /* ✅ ULTRA LUXURY: crossfade + blur transition + micro zoom */
+    .crossfade { position: relative; }
+    .crossfade img {
+      object-fit: cover;
+      opacity: 0;
+      filter: blur(3px);
+      transform: scale(1);
+      animation: crossfade 9s infinite;
+    }
+
+    /* STEP 1 timing */
+    #s3 .grid > div:nth-child(1) .crossfade img:nth-child(1) { animation-delay: 0s; }
+    #s3 .grid > div:nth-child(1) .crossfade img:nth-child(2) { animation-delay: 4.5s; }
+
+    /* STEP 2 timing (staggered) */
+    #s3 .grid > div:nth-child(2) .crossfade img:nth-child(1) { animation-delay: 2s; }
+    #s3 .grid > div:nth-child(2) .crossfade img:nth-child(2) { animation-delay: 6.5s; }
+
+    /* STEP 3 timing (staggered) */
+    #s3 .grid > div:nth-child(3) .crossfade img:nth-child(1) { animation-delay: 4s; }
+    #s3 .grid > div:nth-child(3) .crossfade img:nth-child(2) { animation-delay: 8.5s; }
+
+    @keyframes crossfade {
+      0%   { opacity: 0; filter: blur(5px); transform: scale(1); }
+      8%   { opacity: 1; filter: blur(0px); transform: scale(1.06); }
+      42%  { opacity: 1; filter: blur(0px); transform: scale(1.06); }
+      50%  { opacity: 0; filter: blur(5px); transform: scale(1); }
+      100% { opacity: 0; filter: blur(5px); transform: scale(1); }
+    }
+
+    /* Hover makes circle pop (extra premium) */
+    .premium:hover .lux-ring { box-shadow: 0 20px 70px rgba(59,130,246,.18), 0 0 0 14px rgba(59,130,246,.08); }
+  </style>
+
+  <!-- Heading -->
+  <div class="text-center reveal">
+    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+      How <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-blue-500">YourDerma</span> Works
+    </h2>
+    <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+      Premium skin + hair routine — personalized, trackable, and results-focused.
+    </p>
+  </div>
+
+  <!-- Steps -->
+  <div class="relative mt-16 max-w-6xl mx-auto px-6">
+    <!-- Animated line (desktop) -->
+    <div class="hidden md:block absolute left-10 right-10 top-[92px] h-[6px] rounded-full flow-line"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+
+      <!-- Step 1 -->
+      <div class="reveal premium bg-white/70 backdrop-blur rounded-[2rem] border border-slate-200 shadow-xl p-8 floaty"
+           style="animation-delay:.0s;">
+        <div class="mx-auto w-44 h-44 rounded-full overflow-hidden border-4 border-white ring-glow lux-ring shine crossfade">
+          <img src="/static/step1a.png" alt="Find your plan A">
+          <img src="/static/step1b.png" alt="Find your plan B">
+        </div>
+        <div class="mt-6 text-sm font-semibold text-emerald-600">STEP 01</div>
+        <h3 class="mt-1 text-xl font-bold">Find Your Plan</h3>
+        <p class="mt-3 text-slate-600">
+          Answer quick questions — get a personalized hair/skin plan.
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          AI-based suggestions
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="reveal premium bg-white/70 backdrop-blur rounded-[2rem] border border-slate-200 shadow-xl p-8 floaty"
+           style="animation-delay:.12s;">
+        <div class="mx-auto w-44 h-44 rounded-full overflow-hidden border-4 border-white ring-glow lux-ring shine crossfade">
+          <img src="/static/step2a.png" alt="Follow regime A">
+          <img src="/static/step2b.png" alt="Follow regime B">
+        </div>
+        <div class="mt-6 text-sm font-semibold text-blue-600">STEP 02</div>
+        <h3 class="mt-1 text-xl font-bold">Follow Your Regime</h3>
+        <p class="mt-3 text-slate-600">
+          One-tap daily check-ins for meds, oil, cleanser, minoxidil, etc.
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+          Smart reminders
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="reveal premium bg-white/70 backdrop-blur rounded-[2rem] border border-slate-200 shadow-xl p-8 floaty"
+           style="animation-delay:.24s;">
+        <div class="mx-auto w-44 h-44 rounded-full overflow-hidden border-4 border-white ring-glow lux-ring shine crossfade">
+          <img src="/static/step3a.png" alt="See progress A">
+          <img src="/static/step3b.png" alt="See progress B">
+        </div>
+        <div class="mt-6 text-sm font-semibold text-emerald-600">STEP 03</div>
+        <h3 class="mt-1 text-xl font-bold">See Real Progress</h3>
+        <p class="mt-3 text-slate-600">
+          Track density/skin improvements + before-after comparisons.
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Trend charts
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Reveal Script -->
+  <script>
+    (function () {
+      const items = document.querySelectorAll("#s3 .reveal");
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add("show");
+        });
+      }, { threshold: 0.15 });
+      items.forEach(el => io.observe(el));
+    })();
+  </script>
+</section>
+
+
+
+<!-- SECTION 4 (Real Transformation - Ultra Luxury) -->
+<section id="s4" class="py-24">
+  <style>
+    /* ===== Ultra Luxury Look ===== */
+    .lux-card{
+      position: relative;
+      border-radius: 2rem;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(148,163,184,.35);
+      box-shadow:
+        0 30px 90px rgba(2, 6, 23, .08),
+        0 12px 40px rgba(2,132,199,.10);
+      overflow: hidden;
+    }
+
+    .lux-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:2rem;
+      background: radial-gradient(900px 240px at 20% 0%, rgba(59,130,246,.14), transparent 55%),
+                  radial-gradient(900px 260px at 80% 20%, rgba(16,185,129,.10), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    .lux-card::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-60%;
+      width:60%;
+      height:180%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.50), transparent);
+      transform: rotate(18deg);
+      animation: sweep 5.2s ease-in-out infinite;
+      opacity:.30;
+      pointer-events:none;
+    }
+    @keyframes sweep{
+      0%   { transform: translateX(-40%) rotate(18deg); opacity: 0; }
+      20%  { opacity: .30; }
+      55%  { opacity: .30; }
+      100% { transform: translateX(240%) rotate(18deg); opacity: 0; }
+    }
+
+    .lux-wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .ba{
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.6rem;
+      background: #f1f5f9;
+      aspect-ratio: 16/9;
+      user-select: none;
+      transform: translateZ(0);
+    }
+
+    .lux-card:hover .ba img{
+      transform: scale(1.02);
+    }
+    .ba img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      transition: transform 500ms ease;
+    }
+
+    .beforeClip{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      width:50%;
+    }
+
+    .tag{
+      position:absolute;
+      top: 14px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      color: rgba(15,23,42,.92);
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(148,163,184,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(2,6,23,.10);
+    }
+    .tag.before { left: 14px; }
+    .tag.after  { right: 14px; }
+
+    .divider{
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:50%;
+      width:2px;
+      background: rgba(255,255,255,.65);
+      box-shadow:
+        0 0 0 1px rgba(148,163,184,.35),
+        0 0 30px rgba(59,130,246,.20);
+      transform: translateX(-1px);
+      pointer-events:none;
+    }
+
+    .handle{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(148,163,184,.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 18px 55px rgba(2,6,23,.12),
+        0 0 0 10px rgba(59,130,246,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor: ew-resize;
+    }
+
+    .handle svg{
+      width: 22px; height: 22px;
+      opacity: .9;
+    }
+
+    @keyframes pulseGlow{
+      0%,100% { box-shadow: 0 18px 55px rgba(2,6,23,.12), 0 0 0 10px rgba(59,130,246,.07); }
+      50%     { box-shadow: 0 22px 70px rgba(2,6,23,.12), 0 0 0 13px rgba(16,185,129,.08); }
+    }
+    .handle.pulse{ animation: pulseGlow 3.2s ease-in-out infinite; }
+
+    .dragging .handle{
+      box-shadow:
+        0 22px 75px rgba(2,6,23,.14),
+        0 0 0 14px rgba(59,130,246,.12);
+    }
+
+    .tip{
+      margin-top: 14px;
+      text-align:center;
+      font-size: 13px;
+      color: rgba(100,116,139,.95);
+    }
+  </style>
+
+  <div class="lux-wrap">
+    <div class="text-center">
+      <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
+        Real Transformation
+      </h2>
+      <p class="mt-3 text-slate-600">Drag the slider to see the difference.</p>
+    </div>
+
+    <div class="mt-10 lux-card p-6 md:p-7">
+      <div id="ba" class="ba">
+        <!-- AFTER (full) -->
+        <img src="/static/after.jpeg" alt="After">
+
+        <!-- BEFORE (clipped) -->
+        <div id="beforeClip" class="beforeClip">
+          <img src="/static/before.jpeg" alt="Before">
+        </div>
+
+        <div class="tag before">Before</div>
+        <div class="tag after">After</div>
+
+        <div id="divider" class="divider"></div>
+
+        <div id="handle" class="handle pulse" aria-label="Slider handle" role="slider">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 7L3 12l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 7l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- ✅ Scrub / Curtain drag sound (loop) -->
+      <audio id="scrubAudio" src="/static/sounds/scrub.mp3" preload="auto" loop></audio>
+
+      <div class="tip">Tip: Keep both photos same angle + lighting for best comparison.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const ba = document.getElementById("ba");
+      const beforeClip = document.getElementById("beforeClip");
+      const handle = document.getElementById("handle");
+      const divider = document.getElementById("divider");
+
+      // ✅ scrub sound
+      const scrub = document.getElementById("scrubAudio");
+      let fadeTimer = null;
+      let lastX = null, lastT = null;
+
+      function startScrub() {
+        if (!scrub) return;
+        clearInterval(fadeTimer);
+        scrub.volume = Math.max(scrub.volume || 0, 0.01);
+        scrub.playbackRate = 1.0;
+
+        // play (if blocked it will fail silently)
+        scrub.play().catch(()=>{});
+        // fade in quickly
+        let v = scrub.volume;
+        fadeTimer = setInterval(() => {
+          v = Math.min(0.28, v + 0.03);
+          scrub.volume = v;
+          if (v >= 0.26) clearInterval(fadeTimer);
+        }, 20);
+      }
+
+      function updateScrubSpeed(x) {
+        if (!scrub) return;
+        const now = performance.now();
+
+        if (lastX === null) { lastX = x; lastT = now; return; }
+        const dx = Math.abs(x - lastX);
+        const dt = Math.max(16, now - lastT);
+        const speed = dx / dt; // px/ms
+
+        // map speed -> volume + rate
+        const targetVol  = Math.min(0.35, 0.12 + speed * 0.9);
+        const targetRate = Math.min(1.35, 0.95 + speed * 0.9);
+
+        scrub.volume = scrub.volume + (targetVol - scrub.volume) * 0.25;
+        scrub.playbackRate = scrub.playbackRate + (targetRate - scrub.playbackRate) * 0.25;
+
+        lastX = x; lastT = now;
+      }
+
+      function stopScrub() {
+        if (!scrub) return;
+        clearInterval(fadeTimer);
+        fadeTimer = setInterval(() => {
+          scrub.volume *= 0.85;
+          if (scrub.volume < 0.02) {
+            scrub.pause();
+            scrub.volume = 0;
+            clearInterval(fadeTimer);
+          }
+        }, 30);
+
+        lastX = null; lastT = null;
+      }
+
+      let dragging = false;
+
+      function setPos(clientX) {
+        const r = ba.getBoundingClientRect();
+        let x = clientX - r.left;
+        x = Math.max(0, Math.min(x, r.width));
+        const pct = (x / r.width) * 100;
+
+        beforeClip.style.width = pct + "%";
+        divider.style.left = pct + "%";
+        handle.style.left = pct + "%";
+
+        // ✅ update scrub feel (based on speed)
+        updateScrubSpeed(x);
+      }
+
+      function startDrag(e) {
+        dragging = true;
+        ba.classList.add("dragging");
+        handle.classList.remove("pulse");
+
+        startScrub();
+
+        const x = (e.touches ? e.touches[0].clientX : e.clientX);
+        setPos(x);
+      }
+
+      function moveDrag(e) {
+        if (!dragging) return;
+        const x = (e.touches ? e.touches[0].clientX : e.clientX);
+        setPos(x);
+      }
+
+      function endDrag() {
+        dragging = false;
+        ba.classList.remove("dragging");
+        handle.classList.add("pulse");
+
+        stopScrub();
+      }
+
+      // mouse
+      handle.addEventListener("mousedown", startDrag);
+      window.addEventListener("mousemove", moveDrag);
+      window.addEventListener("mouseup", endDrag);
+
+      // touch
+      handle.addEventListener("touchstart", startDrag, { passive: true });
+      window.addEventListener("touchmove", moveDrag, { passive: true });
+      window.addEventListener("touchend", endDrag);
+
+      // click anywhere on image to jump (small scrub burst)
+      ba.addEventListener("click", (e) => {
+        startScrub();
+        setPos(e.clientX);
+        setTimeout(stopScrub, 600);
+      });
+
+      // initial position
+      setPos(ba.getBoundingClientRect().left + ba.getBoundingClientRect().width * 0.5);
+    })();
+  </script>
+</section>
+
+
+
+
+
+
+
+<!-- section 06 ULTRA LUXURY FINAL -->
+<section id="s6" class="py-16">
+
+<style>
+/* ===== Ultra Luxury Hairfall Section ===== */
+
+#s6{
+  position: relative;
+}
+
+#s6::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    
+    radial-gradient(900px 340px at 80% 25%, rgba(245,158,11,.10), transparent 60%),
+    radial-gradient(900px 340px at 60% 80%, rgba(239,68,68,.06), transparent 65%);
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* Card */
+#s6 article{
+  position:relative;
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(148,163,184,.35);
+  box-shadow:0 18px 55px rgba(2,6,23,.08);
+  overflow:hidden;
+  transition:all .35s ease;
+  transform:translateZ(0);
+}
+
+#s6 article:hover{
+  transform:translateY(-10px) scale(1.02);
+  border-color:rgba(59,130,246,.22);
+  box-shadow:
+    0 28px 90px rgba(2,6,23,.12),
+    0 18px 55px rgba(59,130,246,.16);
+}
+
+/* Inner soft gradient */
+#s6 article::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(800px 260px at 18% 0%, rgba(59,130,246,.10), transparent 55%),
+    radial-gradient(800px 280px at 82% 25%, rgba(16,185,129,.10), transparent 60%);
+  pointer-events:none;
+  opacity:.9;
+}
+
+/* Shine sweep */
+#s6 article::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-60%;
+  width:60%;
+  height:180%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  transform:rotate(18deg);
+  animation:s6_sweep 6.2s ease-in-out infinite;
+  opacity:.18;
+  pointer-events:none;
+}
+
+@keyframes s6_sweep{
+  0%   { transform:translateX(-40%) rotate(18deg); opacity:0; }
+  25%  { opacity:.18; }
+  100% { transform:translateX(240%) rotate(18deg); opacity:0; }
+}
+
+/* Image depth */
+#s6 article img{
+  transition:transform .6s ease, filter .6s ease;
+  filter:saturate(1.05) contrast(1.03);
+}
+
+#s6 article:hover img{
+  transform:scale(1.08);
+}
+
+/* Premium Badge */
+#s6 .badge{
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 8px 24px rgba(2,6,23,.15);
+}
+
+/* Progress rail glow (subtle) */
+#s6 .rail{
+  box-shadow: 0 12px 40px rgba(2,6,23,.06);
+}
+</style>
+
+
+<div class="max-w-6xl mx-auto">
+  <div class="text-center">
+    <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+      Stages of Hair Fall (Grade 1 - 7)
+    </h2>
+    <p class="mt-3 text-slate-600 max-w-2xl mx-auto">
+      Identify your stage and track progress weekly with consistent photos.
+    </p>
+  </div>
+
+  <!-- Progress rail -->
+  <div class="mt-10">
+    <div class="rail h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+      <div class="h-full w-full bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600"></div>
+    </div>
+    <div class="mt-2 flex justify-between text-xs text-slate-500">
+      <span>Mild</span><span>Moderate</span><span>Severe</span>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <!-- Stage 1 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage1.jpg" alt="Hair Stage 1"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600 text-white">
+          Stage 1
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Mild shedding</h3>
+        <p class="mt-2 text-sm text-slate-600">No visible thinning. Hairline looks normal.</p>
+      </div>
+    </article>
+
+    <!-- Stage 2 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage2.jpg" alt="Hair Stage 2"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500 text-white">
+          Stage 2
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Early recession</h3>
+        <p class="mt-2 text-sm text-slate-600">Slight thinning / mild temple recession.</p>
+      </div>
+    </article>
+
+    <!-- Stage 3 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage3.jpg" alt="Hair Stage 3"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500 text-white">
+          Stage 3
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Noticeable thinning</h3>
+        <p class="mt-2 text-sm text-slate-600">Clear hairline recession or crown thinning.</p>
+      </div>
+    </article>
+
+    <!-- Stage 4 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage4.jpg" alt="Hair Stage 4"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500 text-white">
+          Stage 4
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Crown + front thinning</h3>
+        <p class="mt-2 text-sm text-slate-600">More pronounced recession + thinning at crown.</p>
+      </div>
+    </article>
+
+    <!-- Stage 5 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage5.jpg" alt="Hair Stage 5"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
+          Stage 5
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Extensive thinning</h3>
+        <p class="mt-2 text-sm text-slate-600">Front + crown thinning increases; bridge becomes thin.</p>
+      </div>
+    </article>
+
+    <!-- Stage 6 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage6.jpg" alt="Hair Stage 6"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-red-600 text-white">
+          Stage 6
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Large bald area</h3>
+        <p class="mt-2 text-sm text-slate-600">Front and crown areas nearly connect.</p>
+      </div>
+    </article>
+
+    <!-- Stage 7 -->
+    <article class="group rounded-2xl">
+      <div class="relative">
+        <img src="/static/hair_stage7.jpg" alt="Hair Stage 7"
+             class="h-44 w-full object-cover"
+             loading="lazy" decoding="async">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-slate-900 text-white">
+          Stage 7
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900">Severe pattern baldness</h3>
+        <p class="mt-2 text-sm text-slate-600">Mostly bald scalp; hair remains on sides/back.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="mt-6 text-xs text-slate-500 text-center">
+    Tip: For best tracking, take photos in same lighting + same angle every week.
+  </p>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- section 07 ULTRA LUXURY FINAL -->
+<section id="s7" class="py-20">
+
+<style>
+/* ===== Ultra Luxury Acne Section ===== */
+
+#s7{
+  position: relative;
+}
+
+#s7::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+   
+    radial-gradient(800px 300px at 80% 20%, rgba(239,68,68,.08), transparent 60%);
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* Card */
+#s7 article{
+  position:relative;
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(148,163,184,.35);
+  box-shadow:0 18px 55px rgba(2,6,23,.08);
+  overflow:hidden;
+  transition:all .35s ease;
+  transform:translateZ(0);
+}
+
+#s7 article:hover{
+  transform:translateY(-10px) scale(1.02);
+  border-color:rgba(239,68,68,.25);
+  box-shadow:
+    0 28px 90px rgba(2,6,23,.12),
+    0 18px 55px rgba(239,68,68,.18);
+}
+
+/* Inner soft gradient */
+#s7 article::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(700px 240px at 18% 0%, rgba(59,130,246,.10), transparent 55%),
+    radial-gradient(700px 260px at 82% 25%, rgba(239,68,68,.08), transparent 60%);
+  pointer-events:none;
+  opacity:.9;
+}
+
+/* Shine sweep */
+#s7 article::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-60%;
+  width:60%;
+  height:180%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  transform:rotate(18deg);
+  animation:s7_sweep 6s ease-in-out infinite;
+  opacity:.18;
+  pointer-events:none;
+}
+
+@keyframes s7_sweep{
+  0%   { transform:translateX(-40%) rotate(18deg); opacity:0; }
+  25%  { opacity:.18; }
+  100% { transform:translateX(240%) rotate(18deg); opacity:0; }
+}
+
+/* Image depth */
+#s7 article img{
+  transition:transform .6s ease, filter .6s ease;
+  filter:saturate(1.05) contrast(1.03);
+}
+
+#s7 article:hover img{
+  transform:scale(1.08);
+}
+
+/* Premium Badge */
+#s7 .badge{
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 8px 24px rgba(2,6,23,.15);
+}
+</style>
+
+
+<div class="max-w-6xl mx-auto">
+  <div class="text-center">
+    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">
+      Stages of Acne (Grade 1 – 4)
+    </h2>
+    <p class="mt-3 text-slate-600 max-w-2xl mx-auto">
+      Identify severity and track improvement with consistent weekly photos.
+    </p>
+  </div>
+
+  <!-- Progress rail -->
+  <div class="mt-10">
+    <div class="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+      <div class="h-full w-full bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600"></div>
+    </div>
+    <div class="mt-2 flex justify-between text-xs text-slate-500">
+      <span>Mild</span><span>Moderate</span><span>Severe</span>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+    <!-- Grade 1 -->
+    <article class="rounded-2xl">
+      <div class="relative">
+        <img src="/static/acne_stage1.jpg" alt="Acne Grade 1"
+             class="h-48 w-full object-cover"
+             loading="lazy">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600 text-white">
+          Grade 1
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900 text-lg">Comedonal</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Blackheads/whiteheads. Minimal redness.
+        </p>
+      </div>
+    </article>
+
+    <!-- Grade 2 -->
+    <article class="rounded-2xl">
+      <div class="relative">
+        <img src="/static/acne_stage2.jpg" alt="Acne Grade 2"
+             class="h-48 w-full object-cover"
+             loading="lazy">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500 text-white">
+          Grade 2
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900 text-lg">Mild inflammatory</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Small red pimples, occasional pustules.
+        </p>
+      </div>
+    </article>
+
+    <!-- Grade 3 -->
+    <article class="rounded-2xl">
+      <div class="relative">
+        <img src="/static/acne_stage3.jpg" alt="Acne Grade 3"
+             class="h-48 w-full object-cover"
+             loading="lazy">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-orange-600 text-white">
+          Grade 3
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900 text-lg">Moderate</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          More lesions + deeper painful bumps.
+        </p>
+      </div>
+    </article>
+
+    <!-- Grade 4 -->
+    <article class="rounded-2xl">
+      <div class="relative">
+        <img src="/static/acne_stage4.jpg" alt="Acne Grade 4"
+             class="h-48 w-full object-cover"
+             loading="lazy">
+        <div class="badge absolute left-3 top-3 px-3 py-1 rounded-full text-xs font-semibold bg-red-600 text-white">
+          Grade 4
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="font-semibold text-slate-900 text-lg">Severe / cystic</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Deep cysts, high inflammation, scarring risk.
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="mt-8 text-xs text-slate-500 text-center">
+    Tip: Same lighting + same angle each week gives the best comparison.
+  </p>
+</div>
+</section>
+
+
+
+
+<!-- SECTION 5 (CLEAN PREMIUM CTA) -->
+<section id="s5" class="py-28 bg-white">
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="relative rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_40px_100px_-40px_rgba(2,6,23,.25)] overflow-hidden">
+
+      <!-- subtle top shine -->
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center p-12 md:p-16">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- Premium Tag -->
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 text-xs font-semibold tracking-wider text-slate-600">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            PREMIUM TREATMENT TRACKING
+          </div>
+
+          <h2 class="mt-6 text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-slate-900">
+            Start your
+            <span class="text-emerald-600">clear skin</span>
+            &
+            <span class="text-rose-500">healthy hair</span>
+            journey today.
+          </h2>
+
+          <p class="mt-5 text-slate-600 text-lg">
+            Minimal. Private. Built for serious treatment tracking.
+          </p>
+
+          <!-- Trust Badges -->
+          <div class="mt-6 flex flex-wrap gap-4 text-sm text-slate-500">
+            <span>🔒 Private</span>
+            <span>🛡 Secure</span>
+            <span>👨‍⚕ Doctor Friendly</span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT BUTTONS -->
+        <div class="flex md:justify-end gap-5 flex-wrap">
+
+          <!-- Primary Button -->
+          <a href="/signup"
+             class="px-7 py-4 rounded-2xl font-semibold text-white
+                    bg-slate-900 hover:bg-slate-800
+                    shadow-lg hover:-translate-y-1 transition duration-300">
+            Create Account →
+          </a>
+
+          <!-- Secondary Button -->
+          <a href="#s1"
+             class="px-7 py-4 rounded-2xl font-semibold border border-slate-300 bg-white text-slate-900
+                    hover:bg-slate-50 hover:-translate-y-1 transition duration-300">
+            Back to Top
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+(function () {
+  // ---- Audio pool for smooth rapid clicks
+  const SRC = "/static/sounds/soft-click.mpeg";
+  const POOL = [];
+  const POOL_SIZE = 10;
+  let i = 0;
+
+  for (let k = 0; k < POOL_SIZE; k++) {
+    const a = new Audio(SRC);
+    a.preload = "auto";
+    a.volume = 0.22;
+    POOL.push(a);
+  }
+
+  function play() {
+    const a = POOL[i];
+    i = (i + 1) % POOL_SIZE;
+    try {
+      a.currentTime = 0;
+      a.play().catch(()=>{});
+    } catch {}
+  }
+
+  // ---- Unlock (mobile/browser policy)
+  let unlocked = false;
+  function unlockOnce() {
+    if (unlocked) return;
+    unlocked = true;
+    play(); // first user action unlock
+    window.removeEventListener("pointerdown", unlockOnce, true);
+    window.removeEventListener("touchstart", unlockOnce, true);
+  }
+  window.addEventListener("pointerdown", unlockOnce, true);
+  window.addEventListener("touchstart", unlockOnce, true);
+
+  // ---- Auto mark "card-like" elements as clickable (optional premium)
+  // Adds sound to common UI blocks even if they're divs
+  document.querySelectorAll("article, .pCard, .premium, .lux-card, nav a").forEach(el=>{
+    el.setAttribute("data-click-sound", "1");
+  });
+
+  // ---- What counts as "where possible"
+  const INTERACTIVE = `
+    a, button, summary,
+    input[type="button"], input[type="submit"],
+    [role="button"], [role="link"],
+    #handle, #ba,
+    [data-click-sound],
+    img
+  `;
+
+  // ✅ Use POINTERDOWN + CAPTURE => catches almost all clicks, even overlays
+  window.addEventListener("pointerdown", (e) => {
+    const t = e.target;
+    if (!t) return;
+
+    // Don't beep while typing
+    if (t.closest("input, textarea, select")) return;
+
+    // Don't beep on scroll-bar drag / right click
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+
+    // Only beep when click is on meaningful elements
+    if (!t.closest(INTERACTIVE)) return;
+
+    play();
+  }, { capture: true });
+
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
